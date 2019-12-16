@@ -17,6 +17,7 @@
                 area_to: 'C7'
 """
 import openpyxl
+import emailElement
 
 
 def generate_list(path, area_from, area_to):
@@ -32,7 +33,18 @@ def generate_list(path, area_from, area_to):
     return client_list
 
 
-print(generate_list("client_messages.xlsx", "C2", "C7"))
+tempHead = generate_list("../parameters.xlsx", "A1", "G1")
+tempList = generate_list("../parameters.xlsx", "A2", "G3")
 
+constructList = []
 
+for item in tempList:
+    # print(item)
+    # print(tempHead[0])
+    temp = dict(zip(tempHead[0], item))
+    constructList.append(temp)
+
+print(constructList)
+
+# constructList每一个item表示一封邮件
 
