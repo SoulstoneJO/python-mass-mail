@@ -9,7 +9,7 @@ def replace(replaces):
     with open('../emailTemplate.html', 'r', encoding='utf-8') as file:
         html = file.read()
         for item in replaces:
-            html = html.replace(item[0], item[1])
+            html = html.replace(item[0], str(item[1]))
     return html
 
 

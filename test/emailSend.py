@@ -43,23 +43,3 @@ send_mass_email(
     '主体内容：此时测试txt内容', "邮件主题", "送信者", "收信者", "973798884@qq.com",
     "odnbzsnhackabdgf", "smtp.qq.com", 587)
 
-# from_address = "973798884@qq.com"  # 邮件发出者
-# password = "bxqrydyvkkbkbedc"      # 邮件发出者认证
-#
-# to_address = "jorakuten1995@gmail.com"     # 邮件发送者认证
-# SMTP_server = "smtp.qq.com"        # SMTP服务器地址
-#
-# msg = MIMEText('<html><body><h1>Hello</h1>' +
-#     '<p>send by <a href="http://www.python.org">Python</a>...</p>' +
-#     '</body></html>', 'html', 'utf-8')
-#
-# msg['From'] = Header('这是一个测试', 'utf-8')
-# msg['To'] = Header('Jorakuten', 'utf-8')
-# msg['Subject'] = Header('来自Python的问候', 'utf-8')
-#
-# server = smtplib.SMTP(SMTP_server, 587)
-# server.set_debuglevel(1)
-# server.starttls()
-# server.login(from_address, password)
-# server.sendmail(from_address, [to_address], msg.as_string())
-# server.quit()

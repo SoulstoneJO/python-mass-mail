@@ -17,7 +17,7 @@
                 area_to: 'C7'
 """
 import openpyxl
-import emailElement
+from emailElement import EmailElement
 
 
 def generate_list(path, area_from, area_to):
@@ -47,4 +47,12 @@ for item in tempList:
 print(constructList)
 
 # constructList每一个item表示一封邮件
+
+email = []
+
+for item in constructList:
+    element = EmailElement(item)
+    email.append(element)
+
+print(email)
 
