@@ -6,7 +6,7 @@ eg：replaceList:[['#{姓名}', 'Jorakuten'],['#{年龄}', '14']];前者为htmlT
 
 
 def replace(replaces):
-    with open('emailTemplate.html', 'r', encoding='utf-8') as file:
+    with open('../emailTemplate.html', 'r', encoding='utf-8') as file:
         html = file.read()
         for item in replaces:
             html = html.replace(item[0], item[1])

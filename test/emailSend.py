@@ -1,6 +1,6 @@
 """
 群发邮件服务，外界需要传送的参数：
-    一个包含所有邮件地址的列表: address_list
+    一个包含所有接收者邮件地址的列表: address_list
     一个解析完成的html -> String字符串 mail
         message_type: 'plain' or 'html'
             'plain' for simple message
@@ -10,7 +10,6 @@
     邮件接收者名称： to_name
     邮件发出者地址：from_address
     邮件发出者密码(授权码)：from_password
-    邮件收信者地址： to_address
     SMTP服务器地址： SMTP_server
 """
 import smtplib
@@ -21,33 +20,28 @@ from email.mime.text import MIMEText
 def send_mass_email(address_list, message_type, mail,
                     email_subject, from_name, to_name,
                     from_address, from_password,
-                    to_address, smtp_server):
-
+                    smtp_server, server_port):
     message = MIMEText(mail, message_type, 'utf-8')
 
     message['From'] = Header(from_name, 'utf-8')
     message['To'] = Header(to_name, 'utf-8')
     message['Subject'] = Header(email_subject, 'utf-8')
 
-    server = smtplib.SMTP(smtp_server, 587)
+    server = smtplib.SMTP(smtp_server, server_port)
     server.set_debuglevel(1)
     server.starttls()
     server.login(from_address, from_password)
-    for item in address_list:
-        server.sendmail(from_address, [to_address], message.as_string())
-        print(from_address, " --> ", "地址为 ", item[0])
+    server.sendmail(from_address, address_list, message.as_string())
+    print(from_address, " --> ", "地址为 ", address_list)
     server.quit()
-
     return print("发送成功")
 
 
 send_mass_email(
-    [['jorakuten1995@gmail.com'], ['jorakuten1995@gmail.com']],
+    ['jorakuten1995@gmail.com', 'letian1995@softbank.ne.jp'],
     'plain',
-    '主体内容：此时测试txt内容',
-
-)
-
+    '主体内容：此时测试txt内容', "邮件主题", "送信者", "收信者", "973798884@qq.com",
+    "odnbzsnhackabdgf", "smtp.qq.com", 587)
 
 # from_address = "973798884@qq.com"  # 邮件发出者
 # password = "bxqrydyvkkbkbedc"      # 邮件发出者认证
