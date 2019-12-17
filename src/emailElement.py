@@ -27,6 +27,7 @@ class EmailElement:
     body = ""
 
     def __init__(self, dict):   # 构造器方法
+        self.replaceList = []
         self.to_name = dict["to_name"]
         self.address = dict["address"]
         self.email_subject = dict["email_subject"]
@@ -42,11 +43,10 @@ class EmailElement:
         message['Subject'] = Header(self.email_subject, 'utf-8')
 
         server = smtplib.SMTP(smtp_server, server_port)
-        server.set_debuglevel(1)
+        # server.set_debuglevel(1)
         server.starttls()
         server.login(from_address, from_password)
         server.sendmail(from_address, [self.address], message.as_string())
         print(from_address, " --> ", "地址为 ", self.address)
         server.quit()
         return print("发送成功")
-
