@@ -31,13 +31,13 @@ Python 版本： Python 3.8
 当然如果你不喜欢这种方式，你也可以通过修改`fields.ini`当中的属性来配置文件位置
 
 ## 使用流程
-1.配置Excel,设置替代文本字段
-2.修改`htmlTemplate.html`
-3.修改`fields.ini`配置文件
+1.配置Excel,设置替代文本字段  
+2.修改`htmlTemplate.html`  
+3.修改`fields.ini`配置文件  
 4.运行`massMail.exe`,群发邮件
 
 ## 注意事项
-1.程序没有检验邮箱地址是否正确，只有非空检验，填写内容时请注意。
+1.程序没有检验邮箱地址是否正确，只有非空检验，填写内容时请注意。  
 2.Excel配置好后，一定要先保存Excel，否则程序无法读取Excel表格
 的内容，并会出现`None`。
 
