@@ -23,10 +23,10 @@ Python 版本： Python 3.8
     [ExcelToList]:
         Excel相关配置 
 ### 打包后文件目录
-    - exe
-     - massMail
-    - emailTemplate.html
-    - fields.ini
+    |-- exe
+        | -- massMail
+    |-- emailTemplate.html
+    |-- fields.ini
 配置文件`emTemplate.html`,`fields.ini`,`parameters.xlsx`必须放在可执行文件`massMail.exe`的上一级目录当中，否则会出现闪退，
 当然如果你不喜欢这种方式，你也可以通过修改`fields.ini`当中的属性来配置文件位置
 
