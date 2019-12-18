@@ -35,15 +35,20 @@ for item in constructList:
     element = EmailElement(item)
     element.body = replace(element.replaceList, mailTemplate)  # 生成邮件本体
     print("=================================== 这是发给 ", element.to_name, " 的邮件，请检查 ===================================")
-    print(element.body)
+    # print(element.body)
     emailList.append(element)
+
 
 while True:
     isSend = input('是否发送邮件\n1.输入`yes`群发邮件\n2.输入`exit`退出程序\n请在此输入: ')
     if isSend == "yes":
         for element in emailList:
-            element.send()
-        print("发送邮件成功！")
+            if element.attachmentList is None:
+                # element.send_html()
+                print("发送非附件邮件成功")
+            else:
+                element.send_html_attachment()
+                print("发送带附件邮件成功！")
     else:
         if isSend == "exit":
             print("结束程序。")
