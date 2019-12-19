@@ -20,28 +20,28 @@ def send_mass_email(address_list, message_type, mail,
     message.attach(MIMEText(mail, message_type, 'utf-8'))
 
     # 添加附件
-    # with open('test.jpeg', 'rb') as f:
-    #     # 设置附件的MIME和文件名，这里是png类型:
-    #     mime = MIMEBase('image', 'jpeg', filename='test.png')
-    #     # 加上必要的头信息:
-    #     mime.add_header('Content-Disposition', 'attachment', filename='test.png')
-    #     mime.add_header('Content-ID', '<0>')
-    #     mime.add_header('X-Attachment-Id', '0')
-    #     # 把附件的内容读进来:
-    #     mime.set_payload(f.read())
-    #     # 用Base64编码:
-    #     encoders.encode_base64(mime)
-    #     # 添加到MIMEMultipart:
-    #     message.attach(mime)
-    #
-    # server = smtplib.SMTP(smtp_server, server_port)
-    # # server.set_debuglevel(1)
-    # server.starttls()
-    # server.login(from_address, from_password)
-    # server.sendmail(from_address, address_list, message.as_string())
-    # print(from_address, " --> ", "地址为 ", address_list)
-    # server.quit()
-    # return print("发送成功")
+    with open('test.jpeg', 'rb') as f:
+        # 设置附件的MIME和文件名，这里是png类型:
+        mime = MIMEBase('image', 'jpeg', filename='test.png')
+        # 加上必要的头信息:
+        mime.add_header('Content-Disposition', 'attachment', filename='test.png')
+        mime.add_header('Content-ID', '<0>')
+        mime.add_header('X-Attachment-Id', '0')
+        # 把附件的内容读进来:
+        mime.set_payload(f.read())
+        # 用Base64编码:
+        encoders.encode_base64(mime)
+        # 添加到MIMEMultipart:
+        message.attach(mime)
+
+    server = smtplib.SMTP(smtp_server, server_port)
+    # server.set_debuglevel(1)
+    server.starttls()
+    server.login(from_address, from_password)
+    server.sendmail(from_address, address_list, message.as_string())
+    print(from_address, " --> ", "地址为 ", address_list)
+    server.quit()
+    return print("发送成功")
 
 
 send_mass_email(

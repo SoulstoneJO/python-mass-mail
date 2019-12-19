@@ -23,6 +23,23 @@ message_type = config["mailContent"]["message_type"]
 from_name = config["mailContent"]["from_name"]
 
 
+# 添加附件方法
+def add_attachment(filename, count):
+    with open(filename, 'rb') as f:
+        # 设置附件
+        mime = MIMEBase(filename.split(".")[0], filename.split(".")[1], filename=filename)
+        # 加上必要的头信息:
+        mime.add_header('Content-Disposition', 'attachment', filename=filename)
+        count_label = "".join(["<", str(count), ">"])
+        mime.add_header('Content-ID', count_label)
+        mime.add_header('X-Attachment-Id', str(count))
+        # 把附件的内容读进来:
+        mime.set_payload(f.read())
+        # 用Base64编码:
+        encoders.encode_base64(mime)
+    return mime
+
+
 class EmailElement:
     to_name = ""
     address = ""
@@ -31,7 +48,7 @@ class EmailElement:
     body = ""
     attachmentList = ""
 
-    def __init__(self, dict):   # 构造器方法
+    def __init__(self, dict):  # 构造器方法
         self.replaceList = []
         self.to_name = dict["to_name"]
         self.address = dict["address"]
@@ -53,12 +70,12 @@ class EmailElement:
 
         server = smtplib.SMTP(smtp_server, server_port)
         # server.set_debuglevel(1)
+        server.ehlo()
         server.starttls()
         server.login(from_address, from_password)
         server.sendmail(from_address, [self.address], message.as_string())
         print(from_address, " --> ", "地址为 ", self.address)
         server.quit()
-        return print("发送成功")
 
     def send_html_attachment(self):
         # 初始化邮件对象
@@ -70,28 +87,16 @@ class EmailElement:
         # 设置邮件正文
         message.attach(MIMEText(self.body, message_type, 'utf-8'))
 
-        self.add_attachment()
+        # 添加附件
+        for index in range(len(self.attachmentList)):
+            mime = add_attachment(self.attachmentList[index], index)
+            message.attach(mime)
 
+        print("...准备发送...")
         server = smtplib.SMTP(smtp_server, server_port)
         # server.set_debuglevel(1)
         server.starttls()
         server.login(from_address, from_password)
-        server.sendmail(from_address, address_list, message.as_string())
-        print(from_address, " --> ", "地址为 ", address_list)
+        server.sendmail(from_address, [self.address], message.as_string())
+        print(from_address, " --> ", "地址为 ", self.address)
         server.quit()
-        return print("发送成功")
-
-    def add_attachment(self):
-        for item in self.attachmentList:
-            with open(item, 'rb') as f:
-            # 设置附件
-            mime = MIMEBase(item.split(".")[0], item.split(".")[1], filename=item)
-            # 加上必要的头信息:
-            mime.add_header('Content-Disposition', 'attachment', filename='test.png')
-            mime.add_header('Content-ID', '<0>')
-            mime.add_header('X-Attachment-Id', '0')
-            # 把附件的内容读进来:
-            mime.set_payload(f.read())
-            # 用Base64编码:
-            encoders.encode_base64(mime)
-        return None

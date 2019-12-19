@@ -1,3 +1,4 @@
+import os
 import sys
 from emailUtils import *
 from emailElement import *
@@ -11,8 +12,18 @@ excelEnd = config["ExcelToList"]["excelEnd"]
 replaceContentFrom = "".join([list(excelStart)[0], "2"])
 replaceKeyTo = "".join([list(excelEnd)[0], "1"])
 
-# 检验信息中是否有空值
+
 tempList = generate_list(excelPath, excelStart, excelEnd)
+
+# 检验附件路径是否正确
+for i in range(1, len(tempList)):
+    if os.path.exists(tempList[i][3]):
+        print("已检测到附件: ", tempList[i][3])
+    else:
+        print(tempList[i][3], ": 该文件不存在，请检查Excel中的文件名，或者附件位置是否正确")
+        sys.exit(0)
+
+# 检验信息中是否有空值
 for item in tempList:
     for i in item:
         if i is None:
@@ -34,17 +45,16 @@ for item in tempBody:
 for item in constructList:
     element = EmailElement(item)
     element.body = replace(element.replaceList, mailTemplate)  # 生成邮件本体
-    print("=================================== 这是发给 ", element.to_name, " 的邮件，请检查 ===================================")
-    # print(element.body)
+    print("======= 这是发给 ", element.to_name, " 的邮件，附件列表为", element.attachmentList, "请检查 ======= ")
+    print(element.body)
     emailList.append(element)
-
 
 while True:
     isSend = input('是否发送邮件\n1.输入`yes`群发邮件\n2.输入`exit`退出程序\n请在此输入: ')
     if isSend == "yes":
         for element in emailList:
             if element.attachmentList is None:
-                # element.send_html()
+                element.send_html()
                 print("发送非附件邮件成功")
             else:
                 element.send_html_attachment()
@@ -53,4 +63,3 @@ while True:
         if isSend == "exit":
             print("结束程序。")
             sys.exit(0)
-
