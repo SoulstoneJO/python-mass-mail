@@ -1,6 +1,6 @@
-# python-mass-mail
-一个用来群发邮件的python脚本，代码有些粗糙，但是不想改，虽然
-心里这么想着，但是后面可能有空还会看看
+# python-mass-mail 
+一个用来群发邮件的python脚本，代码有些粗糙，但是不想改，虽然心里这么想着，但是后面可能有空还会看看  
+[日本語](readme_japanese.md)
 
 ## 运行环境
 Python 版本： Python 3.8
