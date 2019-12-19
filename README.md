@@ -1,6 +1,5 @@
 # python-mass-mail 
 一个用来群发邮件的python脚本，代码有些粗糙，但是不想改，虽然心里这么想着，但是后面可能有空还会看看  
-[日本語](readme_japanese.md)
 
 ## 运行环境
 Python 版本： Python 3.8
@@ -24,17 +23,18 @@ Python 版本： Python 3.8
         Excel相关配置 
 ### 打包后文件目录
     |-- exe
-        | -- massMail
-    |-- emailTemplate.html
-    |-- fields.ini
-配置文件`emTemplate.html`,`fields.ini`,`parameters.xlsx`必须放在可执行文件`massMail.exe`的上一级目录当中，否则会出现闪退，
-当然如果你不喜欢这种方式，你也可以通过修改`fields.ini`当中的属性来配置文件位置
+        | -- massMail           # 运行程序
+    |-- newyear
+        |-- emailTemplate.html  # Html模板
+        |-- friends.xlsx        # 邮件接收方以及替换字段配置
+    |-- fields.ini              # 主配置文件          
+可以通过修改`fields.ini`当中的属性来配置文件位置
 
 ## 使用流程
 1.配置Excel,设置替代文本字段  
 2.修改`htmlTemplate.html`  
 3.修改`fields.ini`配置文件  
-4.到`massMail.exe`当前文件夹,CMD界面
+4.到`massMail.exe`当前文件夹,打开CMD界面
 5.在CMD界面:>`massMail`运行，直接运行，可能会出现闪退
 
 ## 注意事项
