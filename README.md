@@ -34,7 +34,8 @@ Python 版本： Python 3.8
 1.配置Excel,设置替代文本字段  
 2.修改`htmlTemplate.html`  
 3.修改`fields.ini`配置文件  
-4.运行`massMail.exe`,群发邮件
+4.到`massMail.exe`当前文件夹,CMD界面
+5.在CMD界面:>`massMail`运行，直接运行，可能会出现闪退
 
 ## 注意事项
 1.程序没有检验邮箱地址是否正确，只有非空检验，填写内容时请注意。  
